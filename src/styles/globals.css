@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'react-toastify/dist/ReactToastify.css';
+@import './modules/_index';
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: var(--base-background-color);
+  --background-end-rgb: var(--base-background-color);
+  --mw-doc: 1000px;
+}
+
+body {  
+  font-family: var(--font-ubuntu_mono);
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+  display: block;
+  position: relative;
+  scrollbar-gutter: stable;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+
+}
+
+main {
+  max-width: var(--mw-doc);
+ 
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+@media screen and (overflow-y: scroll) {
+  footer {
+    height: 2.5rem; 
+  }
+}
+
+
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+ 
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+ 
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+ 
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+ 
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 95%;
+    --input: 240 5.9% 95%;
+    --ring: 240 10% 3.9%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+ 
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+ 
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+ 
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+ 
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+ 
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+ 
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 62.8% 60.6%;
+    --destructive-foreground: 0 0% 98%;
+ 
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/*
+.typewriter h1 {
+  width: fit-content;
+  overflow: hidden;
+  white-space: nowrap;
+  letter-spacing: .15em;
+  margin: 0 auto;
+  border-right: .15em solid transparent;
+  animation: typing 3.5s steps(30, end), blink-caret 0.5s ease 0s 5 normal forwards;
+}*/
+
+@keyframes typing {
+  from {width: 0}
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-right-color: transparent }
+  50% { border-color: white }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid hsl(var(--ring));
+  -webkit-text-fill-color: hsl(var(--ring));
+  -webkit-box-shadow: 0 0 0px 1000px rgb(24 24 27 / 0.2) inset;
+  transition: background-color 5000s ease-in-out 0s; /*TODO: REVIEW COLOR SCHEMA*/
+}
