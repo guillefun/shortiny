@@ -1,7 +1,5 @@
 import Link from "next/link";
-import React from "react";
 import { FaGithub } from "react-icons/fa";
-import { signOut } from "shortiny/server/auth";
 
 export default function ProtectedNavItems() {
   return (

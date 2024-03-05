@@ -3,7 +3,7 @@
 import React, { MouseEventHandler } from "react";
 
 export default function Button(
-  { children, onClick = ()=>{}, disabled = false} : 
+  { children, onClick, disabled = false} : 
   { children: React.ReactNode, onClick?: MouseEventHandler<HTMLButtonElement>, disabled?: boolean }
 ) {
   return (

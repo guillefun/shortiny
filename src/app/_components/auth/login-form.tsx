@@ -1,29 +1,28 @@
 "use client";
 
-import React, { use, useState, useTransition } from "react";
-import CardWrapper from "../ui/card/card-wrapper";
-import Button from "../ui/button/button";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
-import { ActionForm, InputForm } from "shortiny/core/models/form.interface";
-import Link from "next/link";
-import { LoginEnumSchema, LoginSchema } from "shortiny/core/schemas";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import {
   Form,
-  FormItem,
   FormControl,
   FormField,
+  FormItem,
   FormLabel,
   FormMessage, //TODO: TO IMPLEMENT FORM ERROR
 } from "shortiny/components/ui/form";
-import { Input } from "shortiny/components/ui/input";
-import { login } from "shortiny/server/actions/login";
 import FormError from "shortiny/components/ui/form-error";
 import FormSuccess from "shortiny/components/ui/form-success";
-import { useSearchParams } from "next/navigation";
+import { Input } from "shortiny/components/ui/input";
+import { LoginSchema } from "shortiny/core/schemas";
+import { login } from "shortiny/server/actions/login";
+import { z } from "zod";
+import Button from "../ui/button/button";
+import CardWrapper from "../ui/card/card-wrapper";
 
 export default function LoginForm() {
   const [isPending, startTransition] = useTransition()
@@ -112,7 +111,7 @@ export default function LoginForm() {
           href="/register"
           className="underline underline-offset-4 hover:text-zinc-800 dark:hover:text-slate-400"
         >
-          Don't have an account? Sign up here.
+          Don&apos;t have an account? Sign up here.
         </Link>
       </div>
     </CardWrapper>

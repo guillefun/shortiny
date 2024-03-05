@@ -1,30 +1,29 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
-import CardWrapper from "../ui/card/card-wrapper";
-import Button from "../ui/button/button";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
-import Link from "next/link";
-import {
-  RegisterSchema,
-} from "shortiny/core/schemas";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import {
   Form,
-  FormItem,
   FormControl,
   FormField,
+  FormItem,
   FormLabel,
   FormMessage, //TODO: TO IMPLEMENT FORM ERROR
 } from "shortiny/components/ui/form";
-import { Input } from "shortiny/components/ui/input";
-import { login } from "shortiny/server/actions/login";
-import { register } from "shortiny/server/actions/register";
 import FormError from "shortiny/components/ui/form-error";
 import FormSuccess from "shortiny/components/ui/form-success";
+import { Input } from "shortiny/components/ui/input";
+import {
+  RegisterSchema,
+} from "shortiny/core/schemas";
+import { register } from "shortiny/server/actions/register";
+import { z } from "zod";
+import Button from "../ui/button/button";
+import CardWrapper from "../ui/card/card-wrapper";
 
 export default function RegisterForm() {
   const [isPending, startTransition] = useTransition();
@@ -42,8 +41,8 @@ export default function RegisterForm() {
   });
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    startTransition(() => {
-      register(values).then((data) => {
+    startTransition(async () => {
+      await register(values).then((data) => {
         setError(data.error);
         setSuccess(data.success);
       });

@@ -1,11 +1,8 @@
 
 import Link from "next/link";
-import React, { useState } from "react";
-import { FaGithub } from "react-icons/fa";
 import { RiLinksFill } from "react-icons/ri";
 
 import "node_modules/flag-icons/css/flag-icons.min.css";
-import { Session } from "next-auth";
 import { auth } from "shortiny/server/auth";
 import ProtectedNavItems from "../nav-items/protected-nav-items";
 import PublicNavItems from "../nav-items/public-nav-items";

@@ -11,10 +11,10 @@ export default async function RedirectPage({params} : {params: RedirectProps}) {
   const { url } = params;
   try {
   const fetchUrl = await api.url.fetchLongUrl.query({
-      shortinyUrl: url as string,
+      shortinyUrl: url,
   });
 
-  const data = fetchUrl?.url!;
+  const data = fetchUrl?.url;
   return (data) ?
     (
     <>

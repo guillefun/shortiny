@@ -1,10 +1,7 @@
-import React from "react";
-import UrlForm from "./_components/ui/form/url-form";
-import UrlBoard from "./_components/ui/table/private/UrlBoard";
-import Button from "./_components/ui/button/button";
+import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 import { SlRocket } from "react-icons/sl";
-import Link from "next/link";
+import Button from "./_components/ui/button/button";
 
 export default async function Home() {
   //TODO: MOVE TABLE TO COMPONENT
