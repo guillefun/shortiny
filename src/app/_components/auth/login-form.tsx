@@ -23,11 +23,16 @@ import { Input } from "shortiny/components/ui/input";
 import { login } from "shortiny/server/actions/login";
 import FormError from "shortiny/components/ui/form-error";
 import FormSuccess from "shortiny/components/ui/form-success";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | undefined>('')
   const [success, setSuccess] = useState<string | undefined>('')
+
+  const searchParams = useSearchParams()
+
+  const callbackUrl = searchParams.get("callbackUrl")
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -39,7 +44,7 @@ export default function LoginForm() {
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     startTransition(() => {
-      login(values).then((data)=>{
+      login(values, callbackUrl).then((data)=>{
         console.log(data)
         setError(data?.error)
         //setSuccess(data.success)
