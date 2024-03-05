@@ -21,7 +21,7 @@ export const LoginAction = ({
       TODO: Implement modal
     </span>
     : 
-    <Link href="/auth/login" className='cursor-pointer'>
+    <Link href="/login" className='cursor-pointer'>
       {children}
     </Link>
   )

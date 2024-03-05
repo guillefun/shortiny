@@ -11,7 +11,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-import { getServerAuthSession } from "shortiny/server/auth";
+import { auth } from "shortiny/server/auth";
 import { db } from "shortiny/server/db";
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient()
@@ -29,7 +29,7 @@ const prisma = new PrismaClient()
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const session = await getServerAuthSession();
+  const session = await auth();
 
   return {
     db,
@@ -38,6 +38,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     prisma
   };
 };
+
 
 /**
  * 2. INITIALIZATION

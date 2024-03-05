@@ -43,6 +43,7 @@ export const RegisterSchema = z.object({
 })
 
 export const LongUrlSchema = z.object({
-  url: z.string().trim().url({ message: "Invalid URL!" })
+  url: z.string().trim().url({ message: "Invalid URL!" }),
+  createdById: z.string().trim().optional()
 })
 

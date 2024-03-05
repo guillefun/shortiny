@@ -77,14 +77,21 @@ export const urlRouter = createTRPCRouter({
       }
     ),
 
-  getAllUrls: publicProcedure //TODO: BORRAR PORQUE DEBERIA SER PROTECTED Y SOLO VERLO EL USER
+  getAllUrls: protectedProcedure //TODO: BORRAR PORQUE DEBERIA SER PROTECTED Y SOLO VERLO EL USER
     .query(
       ({ctx}) => {
+        if(ctx.session?.user === null ) {
+          return;
+        }
+        
         return ctx.prisma.url.findMany({
           select: {
             url: true,
             shortinyUrl: true,
             createdAt: true
+          },
+          where: {
+            createdById: ctx.session!.user!.id!
           },
           orderBy: {
             createdAt: 'desc'

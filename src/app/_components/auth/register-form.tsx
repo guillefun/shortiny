@@ -21,8 +21,8 @@ import {
   FormMessage, //TODO: TO IMPLEMENT FORM ERROR
 } from "shortiny/components/ui/form";
 import { Input } from "shortiny/components/ui/input";
-import { login } from "shortiny/actions/login";
-import { register } from "shortiny/actions/register";
+import { login } from "shortiny/server/actions/login";
+import { register } from "shortiny/server/actions/register";
 import FormError from "shortiny/components/ui/form-error";
 import FormSuccess from "shortiny/components/ui/form-success";
 
@@ -143,7 +143,7 @@ export default function RegisterForm() {
           </Button>
         </div>
         <Link
-          href="/auth/login"
+          href="/login"
           className="underline underline-offset-4 hover:text-zinc-800 dark:hover:text-slate-400"
         >
           Already have an account? Sign in here.

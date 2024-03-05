@@ -16,11 +16,15 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const { username, email, password, confirmPassword } = validatedFields.data
   const hashPassword = await bcrypt.hash(password, 16)
 
+  try {
   const existingUser = await getUserByEmail(email);
-
   if(existingUser) {
     return { error: "User already registered" }
   }
+} catch(e: any) {
+  return { error: "Error in get user" }
+}
+
 
   const entity = {
     name: username,

@@ -1,14 +1,76 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import {
+import { PrismaAdapter } from "@auth/prisma-adapter";
+//import { DefaultSession } from "next-auth";
+/*import {
   getServerSession,
-  type DefaultSession,
-  type NextAuthOptions,
-} from "next-auth";
+  DefaultSession,
+  NextAuthOptions,
+} from "next-auth";*/
+import bcrypt from "bcrypt"
 
+import NextAuth from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
+import Github from "next-auth/providers/github";
+import Credentials from "next-auth/providers/credentials"
+
+import { LoginSchema } from "shortiny/core/schemas"
+import { getUserByEmail } from "shortiny/data/user"
+
+import authConfig from "./auth.config";
 
 import { env } from "shortiny/env";
 import { db } from "shortiny/server/db";
+
+
+///////NEW METHOD AUTHJS V5
+
+
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut
+} = NextAuth({
+  callbacks: {
+    async session({ session, token}) {
+
+      if(token.sub && session.user) {
+        session.user.id = token.sub
+        console.log(session.user)
+      }
+   
+      return session
+    },
+    async jwt({ token }) {
+      return token
+    }
+  },
+  adapter: PrismaAdapter(db), //WARN: Only able to import because of the authConfig middleware trick
+  session: { strategy: "jwt" },
+  ...authConfig,
+  providers: [
+    ...authConfig.providers, 
+    Credentials({ async authorize(credentials) { //WARN: Same as with prismaAdapter with the authConfig middleware trick
+      const validatedFields = LoginSchema.safeParse(credentials);
+
+      if(validatedFields.success) {
+        const { email, password } = validatedFields.data;
+
+        const user = await getUserByEmail(email);
+
+        if(!user || !user.password) return null;
+
+        const passwordsMatch = await bcrypt.compare(
+          password,
+          user.password
+        )
+
+        if (passwordsMatch) return user;
+      }
+
+      return null;
+    }
+  })]
+})
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -16,6 +78,8 @@ import { db } from "shortiny/server/db";
  *
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
+
+/*
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
@@ -31,11 +95,15 @@ declare module "next-auth" {
   // }
 }
 
+*/
+
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
  * @see https://next-auth.js.org/configuration/options
  */
+
+/*
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, user }) => ({
@@ -61,12 +129,17 @@ export const authOptions: NextAuthOptions = {
      *
      * @see https://next-auth.js.org/providers/github
      */
-  ],
-};
-
+ /* ],
+};*/
+/*
 /**
  * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
  *
  * @see https://next-auth.js.org/configuration/nextjs
  */
-export const getServerAuthSession = () => getServerSession(authOptions);
+/*
+export const getServerAuthSession = () => auth(authOptions);
+
+*/
+
+

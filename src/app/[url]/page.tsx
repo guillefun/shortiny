@@ -1,7 +1,6 @@
 import React from 'react'
-import { Redirect } from 'shortiny/app/_components/redirect/Redirect';
+import { Redirect } from 'shortiny/app/_components/navigation/redirect/Redirect';
 import { api } from 'shortiny/trpc/server';
-import { RedirectInApp } from '../_components/redirect/RedirectInApp';
 import NotFound from '../not-found';
 
 interface RedirectProps {
@@ -11,7 +10,7 @@ interface RedirectProps {
 export default async function RedirectPage({params} : {params: RedirectProps}) {
   let { url } = params;
   try {
-  const fetchUrl = await api.post.fetchLongUrl.query({
+  const fetchUrl = await api.url.fetchLongUrl.query({
       shortinyUrl: url as string,
   });
 

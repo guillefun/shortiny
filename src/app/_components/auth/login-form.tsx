@@ -20,7 +20,9 @@ import {
   FormMessage, //TODO: TO IMPLEMENT FORM ERROR
 } from "shortiny/components/ui/form";
 import { Input } from "shortiny/components/ui/input";
-import { login } from "shortiny/actions/login";
+import { login } from "shortiny/server/actions/login";
+import FormError from "shortiny/components/ui/form-error";
+import FormSuccess from "shortiny/components/ui/form-success";
 
 export default function LoginForm() {
   const [isPending, startTransition] = useTransition()
@@ -38,8 +40,9 @@ export default function LoginForm() {
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     startTransition(() => {
       login(values).then((data)=>{
-        setError(data.error)
-        setSuccess(data.success)
+        console.log(data)
+        setError(data?.error)
+        //setSuccess(data.success)
       })
     });
   };
@@ -83,7 +86,8 @@ export default function LoginForm() {
               </FormItem>
             )}
           ></FormField>
-          
+          <FormError message={error}/>
+          <FormSuccess message={success}/>
           <Button disabled={isPending}>
             <span>Sign In</span>
           </Button>
@@ -100,7 +104,7 @@ export default function LoginForm() {
           </Button>
         </div>
         <Link
-          href="/auth/register"
+          href="/register"
           className="underline underline-offset-4 hover:text-zinc-800 dark:hover:text-slate-400"
         >
           Don't have an account? Sign up here.

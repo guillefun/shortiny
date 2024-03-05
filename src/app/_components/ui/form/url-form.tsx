@@ -16,19 +16,23 @@ import { z } from "zod";
 import { Form, FormField } from "shortiny/components/ui/form";
 import CardWrapper from "../card/card-wrapper";
 import Button from "../button/button";
-
+import { auth } from "shortiny/server/auth";
+import { SessionProvider, UpdateSession, useSession } from "next-auth/react"
+import { Session } from "next-auth";
 export default function UrlForm({
   host,
   header,
+  session
 }: {
   host: string | null;
   header: string;
+  session: Session | null
 }) {
 
   const [shortiny, setShortiny] = useState("");
   const [open, setOpen] = useState(false);
 
-  const getShortUrl = api.post.shortinyURL.useMutation({
+  const getShortUrl = api.url.shortinyURL.useMutation({
     onSuccess: (result: Url) => {
       setShortiny(result.shortinyUrl);
       setOpen(true);
@@ -54,6 +58,7 @@ export default function UrlForm({
     console.log("e");
     getShortUrl.mutate({
       url: values.url,
+      createdById: session?.user?.id!
     });
   };
 
@@ -65,10 +70,12 @@ export default function UrlForm({
     resolver: zodResolver(LongUrlSchema),
     defaultValues: {
       url: "",
+      createdById: ""
     },
   });
 
   return (
+
     <CardWrapper headerLabel="Enter url">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
@@ -83,7 +90,7 @@ export default function UrlForm({
           ></FormField>
 
           <div className="w-full">
-            <Button onClick={()=>{}}>
+            <Button>
               Submit
             </Button>
           </div>
@@ -93,6 +100,7 @@ export default function UrlForm({
       <ToastContainer />
       <MyDialog control={open} action={handleCloseDialog} />
     </CardWrapper>
+
   );
 }
 
