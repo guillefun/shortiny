@@ -4,7 +4,7 @@ import Table from '../Table'
 import { UrlPublic } from 'shortiny/core/models/url-public.interface'
 
 export default async function UrlBoard({ host } : { host: string }) {
-  let urls = await api.url.getAllUrls.query() ?? []
+  const urls = await api.url.getAllUrls.query() ?? []
   const parsed_urls: UrlPublic[] = urls?.map((url)=> (
     {
       url: url.url, 

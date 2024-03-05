@@ -91,7 +91,7 @@ export const urlRouter = createTRPCRouter({
             createdAt: true
           },
           where: {
-            createdById: ctx.session!.user!.id!
+            createdById: ctx.session!.user!.id
           },
           orderBy: {
             createdAt: 'desc'

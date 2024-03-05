@@ -58,7 +58,7 @@ export default function UrlForm({
     console.log("e");
     getShortUrl.mutate({
       url: values.url,
-      createdById: session?.user?.id!
+      createdById: session?.user?.id ?? '0'
     });
   };
 

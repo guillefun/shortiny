@@ -19,10 +19,10 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
     await signIn("credentials", {
       email,
       password,
-      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT
+      redirectTo: callbackUrl ?? DEFAULT_LOGIN_REDIRECT
     })
 
-    //return { success: "Success!" }
+    return { success: "Success!" }
 
   } catch (error) {
     if(error instanceof AuthError) {

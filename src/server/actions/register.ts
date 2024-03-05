@@ -13,7 +13,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return { error: "Invalid fields!" }
   }
 
-  const { username, email, password, confirmPassword } = validatedFields.data
+  const { username, email, password } = validatedFields.data
   const hashPassword = await bcrypt.hash(password, 16)
 
   try {
@@ -21,7 +21,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   if(existingUser) {
     return { error: "User already registered" }
   }
-} catch(e: any) {
+} catch(error) {
   return { error: "Error in get user" }
 }
 
@@ -34,7 +34,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
   try {
     await api.user.create.mutate(entity)
-  } catch(e: any) {
+  } catch(error) {
     return { error: "Error in create user" }
   }
   //TODO: SEND VERIFICATION TOKEN EMAIL 😄

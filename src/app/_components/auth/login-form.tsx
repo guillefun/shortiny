@@ -43,11 +43,11 @@ export default function LoginForm() {
   });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    startTransition(() => {
-      login(values, callbackUrl).then((data)=>{
+    startTransition(async () => {
+      await login(values, callbackUrl).then((data)=>{
         console.log(data)
         setError(data?.error)
-        //setSuccess(data.success)
+        setSuccess(data?.success)
       })
     });
   };

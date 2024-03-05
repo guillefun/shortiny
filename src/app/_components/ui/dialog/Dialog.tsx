@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { Dialog, Transition } from "@headlessui/react"
 
 export default function MyDialog({ control, action } : { control: boolean, action: () => void }) {
@@ -8,7 +8,7 @@ export default function MyDialog({ control, action } : { control: boolean, actio
   return (
 <>
       <Transition appear show={control} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={()=>{}}>
+        <Dialog as="div" className="relative z-10" onClose={()=>{console.log(".")}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
