@@ -19,7 +19,7 @@ export default auth((req) => {
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
-  const isShortinyUrl = new RegExp("^\/[A-Za-z0-9_-]{6,}$").test(nextUrl.pathname)
+  const isShortinyUrl = new RegExp("^\/[A-Za-z0-9_-]{6}$").test(nextUrl.pathname)
 
   console.log("Route: ", req.nextUrl.pathname, " Logged in? ", isLoggedIn)
 
