@@ -49,7 +49,9 @@ export default auth((req) => {
     return Response.redirect(new URL(`/login?callbackUrl=${encondedCallbackUrl}`,nextUrl))
   }
 
-
+  if(isShortinyUrl) {
+    return;
+  }
 
   return;
 })
