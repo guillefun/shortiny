@@ -46,6 +46,7 @@ export default function ProtectedNavItems() {
         >
           <Link
             href="https://github.com/guillefun/shortiny"
+            target="_blank"
             className="m-2 block p-2 text-xl font-bold text-black transition-colors delay-75 ease-in hover:text-blue-200 dark:text-zinc-100 dark:hover:text-blue-400"
             aria-current="page"
           >

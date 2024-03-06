@@ -23,9 +23,14 @@ export default async function Home() {
                     <SlRocket className="h-5 w-5" /> <span>Get Started</span>
                   </Button>
                 </Link>
-                <Button>
-                  <FaGithub className="h-5 w-5" /> <span>Github</span>
-                </Button>
+                <Link 
+                  href="https://github.com/guillefun/shortiny"
+                  target="_blank"
+                >
+                  <Button>
+                    <FaGithub className="h-5 w-5" /> <span>Github</span>
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
