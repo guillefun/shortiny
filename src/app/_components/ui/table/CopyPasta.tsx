@@ -5,8 +5,8 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export function CopyPasta({ text }: { text: string }) {
-  function copy() {
-    navigator.clipboard.writeText(text);
+  async function copy() {
+    await navigator.clipboard.writeText(text);
     toast.success("Copied to clipboard! 🥳", {
       position: "top-right",
       autoClose: 2000,
