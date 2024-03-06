@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import React from 'react'
 import { UrlPublic } from 'shortiny/core/models/url-public.interface';
+import { CopyPasta } from './CopyPasta';
+
 
 export default function Table({data}:{data: UrlPublic[]}) {
  
@@ -35,14 +37,15 @@ export default function Table({data}:{data: UrlPublic[]}) {
                     {obj.url}
                   </Link>
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 flex flex-row gap-x-4">
                   <Link 
                     target="_blank"
                     className="hover:text-zinc-800 dark:hover:text-slate-400" 
-                    href={obj.url}
+                    href={obj.shortinyUrl}
                   >
                     {obj.shortinyUrl}
                   </Link>
+                  <CopyPasta text={obj.shortinyUrl}/>
                 </td>
                 <td className="px-6 py-4">
                   {obj.date}

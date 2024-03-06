@@ -12,11 +12,10 @@ export default async function Home() {
           <div className="mx-auto max-w-2xl py-12 ">
             <div className="typewriter text-center">
               <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl dark:text-zinc-100">
-                Link shortener
+                Shortiny your URLs
               </h1>
               <p className="mt-6 text-balance text-lg leading-8 text-gray-600 dark:text-zinc-300">
-                Open source free to use link shortener behind Auth, implemented
-                with AuthJS.
+                Simplify link sharing securely with our AuthJS-powered, free-to-use open-source link shortener
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Link href="/login">

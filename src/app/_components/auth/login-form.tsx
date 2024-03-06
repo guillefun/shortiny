@@ -97,7 +97,7 @@ export default function LoginForm() {
           </Button>
         </form>
       </Form>
-      <div className="flex flex-col w-fit mx-auto mt-8 gap-y-2 items-center">
+      <div className="flex flex-col w-fit mx-auto mt-8 gap-y-2 justify-center items-center">
         <p className="text-black dark:text-zinc-100 text-md">Or better sign in with one of our providers!</p>
         <div className="flex w-full items-center gap-x-2">
           <Button>

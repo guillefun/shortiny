@@ -45,7 +45,7 @@ export default function ProtectedNavItems() {
           className="bg-zinc-700/66 inline-block cursor-pointer rounded-lg"
         >
           <Link
-            href="/login"
+            href="https://github.com/guillefun/shortiny"
             className="m-2 block p-2 text-xl font-bold text-black transition-colors delay-75 ease-in hover:text-blue-200 dark:text-zinc-100 dark:hover:text-blue-400"
             aria-current="page"
           >

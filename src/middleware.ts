@@ -19,8 +19,9 @@ export default auth((req) => {
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+  const isShortinyUrl = new RegExp("^\/[A-Za-z0-9_-]{6,}$").test(nextUrl.pathname)
 
-  console.log("Route: ", req.nextUrl.pathname," Logged in? ", isLoggedIn)
+  console.log("Route: ", req.nextUrl.pathname, " Logged in? ", isLoggedIn)
 
   if(isApiAuthRoute) {
     return;
@@ -34,6 +35,10 @@ export default auth((req) => {
   }
 
   if(!isLoggedIn && !isPublicRoute) {
+    if(isShortinyUrl) { //TODO: Check logic, may cause some match with undesired routes like /logout
+      return;
+    }
+
     let callbackUrl = nextUrl.pathname;
     if (nextUrl.search) {
       callbackUrl += nextUrl.search;
@@ -42,6 +47,10 @@ export default auth((req) => {
     const encondedCallbackUrl = encodeURIComponent(callbackUrl)
 
     return Response.redirect(new URL(`/login?callbackUrl=${encondedCallbackUrl}`,nextUrl))
+  }
+
+  if(isShortinyUrl) {
+    return;
   }
 
   return;
