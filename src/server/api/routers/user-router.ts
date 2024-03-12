@@ -37,6 +37,15 @@ export const userRouter = createTRPCRouter({
         }
       })
     }),
+  delete: protectedProcedure
+    .input(z.object({ id: z.string().trim() }))
+    .query(({ ctx, input: {id}}) => {
+      return ctx.prisma.user.delete({
+        where: {
+          id
+        }
+      })
+    }),
   findUniqueByEmail: publicProcedure
     .input(z.object({ email: z.string().trim().email() }))
     .query(({ ctx, input: {email}}) => {
@@ -57,5 +66,5 @@ export const userRouter = createTRPCRouter({
     })
   })
 
-  
+
 });

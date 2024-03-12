@@ -126,7 +126,7 @@ export default function RegisterForm() {
           ></FormField>
           <FormError message={error}/>
           <FormSuccess message={success}/>
-          <Button disabled={isPending}>
+          <Button disabled={isPending} loading={isPending}>
             <span>Sign Up</span>
           </Button>
         </form>

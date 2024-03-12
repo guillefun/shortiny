@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
+import { signOut } from "shortiny/server/auth";
 
 export default function ProtectedNavItems() {
   return (
@@ -8,7 +10,7 @@ export default function ProtectedNavItems() {
       id="navbar-default"
     >
       <ul className="mx-2 flex list-none flex-col gap-4 bg-transparent font-medium md:mt-0 md:flex-row md:border-0 md:p-0 rtl:space-x-reverse">
-         {/* <li
+        {/* <li
           key="login"
           className="bg-zinc-700/66 inline-block cursor-pointer rounded-lg"
         >
@@ -64,6 +66,24 @@ export default function ProtectedNavItems() {
           >
             <FaGithub className="h-6 w-6" />
           </Link>
+        </li>
+        <li
+          key="github"
+          className="bg-zinc-700/66 inline-block cursor-pointer rounded-lg"
+        >
+          <form
+            action={async () => {
+              "use server";
+              await signOut();
+            }}
+          >
+            <button
+              className="m-2 block p-2 transition-all delay-75 hover:scale-110"
+              type="submit"
+            >
+              <IoIosLogOut className="h-6 w-6 transition-colors delay-75 ease-in hover:text-blue-200 dark:text-zinc-100 dark:hover:text-blue-400" />
+            </button>
+          </form>
         </li>
       </ul>
     </div>

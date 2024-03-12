@@ -2,7 +2,7 @@
 
 import { type Url } from "@prisma/client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -28,7 +28,8 @@ export default function UrlForm({
 
   const [shortiny, setShortiny] = useState("");
   const [open, setOpen] = useState(false);
-
+  const [isPending, startTransition] = useTransition()
+  
   const getShortUrl = api.url.shortinyURL.useMutation({
     onSuccess: (result: Url) => {
       setShortiny(result.shortinyUrl);
@@ -53,10 +54,13 @@ export default function UrlForm({
 
   const onSubmit = (values: z.infer<typeof LongUrlSchema>) => {
     console.log("e");
-    getShortUrl.mutate({
-      url: values.url,
-      createdById: session?.user?.id ?? '0'
-    });
+    startTransition(async () => {
+      getShortUrl.mutate({
+        url: values.url,
+        createdById: session?.user?.id ?? '0'
+      });
+    })
+
   };
 
   const handleCloseDialog = () => {
@@ -87,7 +91,7 @@ export default function UrlForm({
           ></FormField>
 
           <div className="w-full">
-            <Button>
+            <Button loading={isPending}>
               Submit
             </Button>
           </div>
@@ -95,12 +99,12 @@ export default function UrlForm({
       </Form>
       <Item host={host} url={shortiny} />
       <ToastContainer />
-      <MyDialog control={open} action={handleCloseDialog} />
+
     </CardWrapper>
 
   );
 }
-
+//      <MyDialog control={open} action={handleCloseDialog} />
 const Item = ({ host, url }: { host: string | null; url: string }) => {
   if (!!url) {
     return (

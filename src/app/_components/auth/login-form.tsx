@@ -92,7 +92,7 @@ export default function LoginForm() {
           ></FormField>
           <FormError message={error}/>
           <FormSuccess message={success}/>
-          <Button disabled={isPending}>
+          <Button disabled={isPending} loading={isPending}>
             <span>Sign In</span>
           </Button>
         </form>

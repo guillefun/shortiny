@@ -20,8 +20,8 @@ import {
 } from "shortiny/core/schemas";
 import { updateUser } from "shortiny/server/actions/updateUser";
 import { type z } from "zod";
-import Button from "../ui/button/button";
-import CardWrapper from "../ui/card/card-wrapper";
+import Button from "../button/button";
+import CardWrapper from "../card/card-wrapper";
 import { auth } from "shortiny/server/auth";
 
 
@@ -87,7 +87,7 @@ export default function SettingsForm({ userData }: { userData: SettingsFormData 
           ></FormField>
           <FormError message={error}/>
           <FormSuccess message={success}/>
-          <Button disabled={isPending}>
+          <Button disabled={isPending} loading={isPending}>
             <span>Save</span>
           </Button>
         </form>
