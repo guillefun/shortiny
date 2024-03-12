@@ -35,6 +35,7 @@ export default async function RootLayout({
       </head>
       <body className={`font-ubuntu_mono ${inter.variable} ${ubuntu_mono}`}>
         <TRPCReactProvider>
+          
             <NavHeader />
               <main>
                 {children}

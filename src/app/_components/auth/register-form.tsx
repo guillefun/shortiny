@@ -21,7 +21,7 @@ import {
   RegisterSchema,
 } from "shortiny/core/schemas";
 import { register } from "shortiny/server/actions/register";
-import { z } from "zod";
+import { type z } from "zod";
 import Button from "../ui/button/button";
 import CardWrapper from "../ui/card/card-wrapper";
 
@@ -133,7 +133,7 @@ export default function RegisterForm() {
       </Form>
       <div className="flex flex-col w-fit mx-auto mt-8 gap-y-2 justify-center items-center">
         <p className="text-black dark:text-zinc-100 text-md">Or better sign in with one of our providers!</p>
-        <div className="flex w-full items-center gap-x-2">
+        <div className="flex w-full justify-center items-center gap-x-2">
           <Button>
             <FcGoogle className="h-5 w-5" />
           </Button>

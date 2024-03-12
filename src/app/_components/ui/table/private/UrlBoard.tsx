@@ -1,7 +1,8 @@
 import React from 'react'
 import { api } from 'shortiny/trpc/server'
 import Table from '../Table'
-import { UrlPublic } from 'shortiny/core/models/url-public.interface'
+import { type UrlPublic } from 'shortiny/core/models/url-public.interface'
+import Button from '../../button/button'
 
 export default async function UrlBoard({ host } : { host: string }) {
   const urls = await api.url.getAllUrls.query() ?? []

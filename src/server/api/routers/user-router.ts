@@ -6,10 +6,8 @@ import {
   publicProcedure,
 } from "shortiny/server/api/trpc";
 
-
 export const userRouter = createTRPCRouter({
-
-
+  
   create: publicProcedure
     .input(
       z.object({ 
@@ -27,7 +25,18 @@ export const userRouter = createTRPCRouter({
         },
       });
     }),
-
+  update: protectedProcedure
+    .input(z.object({ id: z.string().trim(), username: z.string() }))
+    .query(({ ctx, input: {id, username}}) => {
+      return ctx.prisma.user.update({
+        where: {
+          id
+        },
+        data: {
+          name: username
+        }
+      })
+    }),
   findUniqueByEmail: publicProcedure
     .input(z.object({ email: z.string().trim().email() }))
     .query(({ ctx, input: {email}}) => {
@@ -39,7 +48,7 @@ export const userRouter = createTRPCRouter({
     }),
 
   findUniqueById: publicProcedure
-  .input(z.object({ id: z.string().trim() }))
+  .input(z.object({ id: z.string() }))
   .query(({ ctx, input: {id}}) => {
     return ctx.prisma.user.findUnique({
       where: {
@@ -47,4 +56,6 @@ export const userRouter = createTRPCRouter({
       }
     })
   })
+
+  
 });

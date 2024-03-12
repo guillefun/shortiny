@@ -5,6 +5,7 @@
  */
 export const publicRoutes = [
   "/",
+  "/info",
   "/[url]"
 ]
 
@@ -25,7 +26,8 @@ export const authRoutes = [
  */
 export const protectedRoutes = [
   "/board",
-  "/settings"
+  "/settings",
+  "/url-form"
 ]
 
 /**

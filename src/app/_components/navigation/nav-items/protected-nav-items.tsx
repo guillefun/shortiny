@@ -29,6 +29,18 @@ export default function ProtectedNavItems() {
           </form>
         </li>*/}
         <li
+          key="board"
+          className="bg-zinc-700/66 inline-block cursor-pointer rounded-lg"
+        >
+          <Link
+            href="/board"
+            className="m-2 block p-2 text-xl font-bold text-black transition-colors delay-75  ease-in hover:text-blue-200 dark:text-zinc-100 dark:hover:text-blue-400"
+            aria-current="page"
+          >
+            Board
+          </Link>
+        </li>
+        <li
           key="settings"
           className="bg-zinc-700/66 inline-block cursor-pointer rounded-lg"
         >

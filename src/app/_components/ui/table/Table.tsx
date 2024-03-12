@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react'
-import { UrlPublic } from 'shortiny/core/models/url-public.interface';
+import { type UrlPublic } from 'shortiny/core/models/url-public.interface';
 import { CopyPasta } from './CopyPasta';
 
 
@@ -8,7 +8,7 @@ export default function Table({data}:{data: UrlPublic[]}) {
  
   return ( 
   data.length > 0 &&
-  <div className="w-full relative overflow-x-auto sm:rounded-lg">
+  <div className="w-full relative overflow-x-auto sm:rounded-2xl">
     <table className="max-sm:hidden w-full text-left text-sm rtl:text-right dark:text-gray-400">
       <thead className="bg-gray-50 text-xs uppercase text-black dark:text-zinc-300 dark:bg-gray-700">
         <tr>

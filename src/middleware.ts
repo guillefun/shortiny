@@ -22,7 +22,7 @@ export default auth((req) => {
   const isShortinyUrl = new RegExp("^\/[A-Za-z0-9_-]{6}$").test(nextUrl.pathname)
 
   console.log("Route: ", req.nextUrl.pathname, " Logged in? ", isLoggedIn)
-
+  
   if(isApiAuthRoute) {
     return;
   }
@@ -33,7 +33,7 @@ export default auth((req) => {
     }
     return;
   }
-
+ 
   if(!isLoggedIn && !isPublicRoute) {
     if(isShortinyUrl) { //TODO: Check logic, may cause some match with undesired routes like /logout
       return;

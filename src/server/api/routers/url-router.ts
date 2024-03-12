@@ -42,7 +42,7 @@ export const urlRouter = createTRPCRouter({
     return "you can now see this secret message!";
   }),
 
-  shortinyURL: publicProcedure
+  shortinyURL: protectedProcedure
     .input(
       z.object({
         url: z.string().trim().url({ message: "Invalid URL!" }),
@@ -61,7 +61,7 @@ export const urlRouter = createTRPCRouter({
       return data;
     }),
 
-  fetchLongUrl: publicProcedure
+  fetchLongUrl: protectedProcedure
     .input(
       z.object({ 
         shortinyUrl: z.string().length(6, { message: 'Must be 6 characters long' })

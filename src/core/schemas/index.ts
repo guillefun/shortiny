@@ -47,3 +47,8 @@ export const LongUrlSchema = z.object({
   createdById: z.string().trim().optional()
 })
 
+export const SettingsSchema = z.object({
+  username: z.optional(z.string().min(1, {
+    message: "Name is required"
+  })),
+})

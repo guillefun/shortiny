@@ -5,24 +5,20 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
   DefaultSession,
   NextAuthOptions,
 } from "next-auth";*/
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 
 import NextAuth from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
-import Github from "next-auth/providers/github";
-import Credentials from "next-auth/providers/credentials"
+import Credentials from "next-auth/providers/credentials";
 
-import { LoginSchema } from "shortiny/core/schemas"
-import { getUserByEmail } from "shortiny/data/user"
+import { LoginSchema } from "shortiny/core/schemas";
+import { getUserByEmail, getUserByEmailClient } from "shortiny/data/user";
 
 import authConfig from "./auth.config";
 
-import { env } from "shortiny/env";
 import { db } from "shortiny/server/db";
 
 
 ///////NEW METHOD AUTHJS V5
-
 
 export const {
   handlers: { GET, POST },
@@ -31,46 +27,69 @@ export const {
   signOut
 } = NextAuth({
   callbacks: {
-    async session({ session, token}) {
-
-      if(token.sub && session.user) {
-        session.user.id = token.sub
-        console.log(session.user)
+    async session({ session, token }) {
+      if (token.sub && session.user) {
+        session.user.id = token.sub;
       }
-   
-      return session
+
+      if (session.user) {
+        if(session.user.name !== token.name) {
+          session.user.name = token.name
+          console.log("session", session.user)
+        }
+        
+
+        return session;
+      }
+
+      return session;
     },
-    async jwt({ token }) {
-      return token
+    async jwt({ token, trigger, session }) {
+      if (!token.sub) return token;
+      if (!token.email) return token;
+      
+      if(trigger==="update") {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
+        return {...token, ...session.user};
     }
+
+      const currentUser = await getUserByEmailClient(token.email);
+
+      if (!currentUser) return token;
+
+      token.name = currentUser.data?.name;
+
+
+
+      return token;
+    },
   },
   adapter: PrismaAdapter(db), //WARN: Only able to import because of the authConfig middleware trick
   session: { strategy: "jwt" },
-  ...authConfig,
   providers: [
-    ...authConfig.providers, 
-    Credentials({ async authorize(credentials) { //WARN: Same as with prismaAdapter with the authConfig middleware trick
-      const validatedFields = LoginSchema.safeParse(credentials);
+    Credentials({
+      async authorize(credentials) {
+        //WARN: Same as with prismaAdapter with the authConfig middleware trick
+        const validatedFields = LoginSchema.safeParse(credentials);
 
-      if(validatedFields.success) {
-        const { email, password } = validatedFields.data;
+        if (validatedFields.success) {
+          const { email, password } = validatedFields.data;
 
-        const user = await getUserByEmail(email);
+          const user = await getUserByEmail(email);
 
-        if(!user?.password) return null;
+          if (!user?.password) return null;
 
-        const passwordsMatch = await bcrypt.compare(
-          password,
-          user.password
-        )
+          const passwordsMatch = await bcrypt.compare(password, user.password);
 
-        if (passwordsMatch) return user;
-      }
+          if (passwordsMatch) return user;
+        }
 
-      return null;
-    }
-  })]
-})
+        return null;
+      },
+    }),
+  ],
+  ...authConfig.providers,
+});
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -129,7 +148,7 @@ export const authOptions: NextAuthOptions = {
      *
      * @see https://next-auth.js.org/providers/github
      */
- /* ],
+/* ],
 };*/
 /*
 /**
@@ -141,5 +160,3 @@ export const authOptions: NextAuthOptions = {
 export const getServerAuthSession = () => auth(authOptions);
 
 */
-
-
