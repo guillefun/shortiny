@@ -6,13 +6,12 @@ const { auth } = NextAuth(authConfig)
 import {
   publicRoutes,
   authRoutes,
-  protectedRoutes,
   apiAuthPrefix,
-  DEFAULT_LOGIN_REDIRECT
+  DEFAULT_LOGIN_REDIRECT as DEFAULT_LOGGED_REDIRECT,
+  ONLY_PUBLIC_URL
 } from "./routes"
 
 export default auth((req) => {
-  // req.auth
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
 
@@ -20,8 +19,7 @@ export default auth((req) => {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
   const isShortinyUrl = new RegExp("^\/[A-Za-z0-9_-]{6}$").test(nextUrl.pathname)
-
-  console.log("Route: ", req.nextUrl.pathname, " Logged in? ", isLoggedIn)
+  const isOnlyPublicUrl = nextUrl.pathname === ONLY_PUBLIC_URL
   
   if(isApiAuthRoute) {
     return;
@@ -29,9 +27,15 @@ export default auth((req) => {
 
   if(isAuthRoute) {
     if (isLoggedIn) {
-      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+      return Response.redirect(new URL(DEFAULT_LOGGED_REDIRECT, nextUrl))
     }
     return;
+  }
+
+  if(isOnlyPublicUrl) {
+    if(isLoggedIn) {
+      return Response.redirect(new URL(DEFAULT_LOGGED_REDIRECT, nextUrl))
+    }
   }
  
   if(!isLoggedIn && !isPublicRoute) {

@@ -16,7 +16,10 @@ import { api } from "shortiny/trpc/react";
 import { type z } from "zod";
 import Button from "../button/button";
 import CardWrapper from "../card/card-wrapper";
-import MyDialog from "../dialog/Dialog";
+import Router from "next/router";
+import { useRouter } from "next/navigation";
+
+
 
 export default function UrlForm({
   host,
@@ -27,13 +30,12 @@ export default function UrlForm({
 }) {
 
   const [shortiny, setShortiny] = useState("");
-  const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition()
-  
+  const router = useRouter();
+
   const getShortUrl = api.url.shortinyURL.useMutation({
     onSuccess: (result: Url) => {
       setShortiny(result.shortinyUrl);
-      setOpen(true);
       toast.info("🦄 Wow so easy!", {
         position: "top-right",
         autoClose: 2000,
@@ -45,7 +47,7 @@ export default function UrlForm({
         theme: "dark",
         transition: Bounce,
       });
-      console.log("Success");
+      router.refresh();
     },
     onError: (_err) => {
       console.log("failed to get");
@@ -53,7 +55,6 @@ export default function UrlForm({
   });
 
   const onSubmit = (values: z.infer<typeof LongUrlSchema>) => {
-    console.log("e");
     startTransition(async () => {
       getShortUrl.mutate({
         url: values.url,
@@ -61,10 +62,6 @@ export default function UrlForm({
       });
     })
 
-  };
-
-  const handleCloseDialog = () => {
-    setOpen(false);
   };
 
   const form = useForm<z.infer<typeof LongUrlSchema>>({

@@ -1,11 +1,13 @@
 import React from 'react'
 import { api } from 'shortiny/trpc/server'
 import Table from '../Table'
-import { type UrlPublic } from 'shortiny/core/models/url-public.interface'
-import Button from '../../button/button'
+import { type RawUrl, type UrlPublic } from 'shortiny/core/models/url-public.interface'
+import { type Url } from '@prisma/client'
 
-export default async function UrlBoard({ host } : { host: string }) {
-  const urls = await api.url.getAllUrls.query() ?? []
+export default async function UrlBoard({ host, urls } : { host: string, urls: RawUrl[] }) {
+  console.log("UrlBoard")
+
+/*  const urls = await api.url.getAllUrls.query() ?? []*/
   const parsed_urls: UrlPublic[] = urls?.map((url)=> (
     {
       url: url.url, 
@@ -14,6 +16,12 @@ export default async function UrlBoard({ host } : { host: string }) {
     }
   ))
   return (
-    <Table data={parsed_urls}/>
+    parsed_urls ? 
+    <section className="mb-[10rem] flex h-full w-full flex-col items-center justify-center rounded-2xl border bg-white shadow-xl dark:border-zinc-700 dark:bg-zinc-800">
+      <Table data={parsed_urls}/> 
+    </section>
+    : <></>
   )
 }
+
+

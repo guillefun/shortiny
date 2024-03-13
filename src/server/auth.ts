@@ -7,7 +7,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 } from "next-auth";*/
 import bcrypt from "bcrypt";
 
-import NextAuth from "next-auth";
+import NextAuth, { type Session } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 import { LoginSchema } from "shortiny/core/schemas";
@@ -35,10 +35,8 @@ export const {
       if (session.user) {
         if(session.user.name !== token.name) {
           session.user.name = token.name
-          console.log("session", session.user)
         }
         
-
         return session;
       }
 
@@ -48,9 +46,9 @@ export const {
       if (!token.sub) return token;
       if (!token.email) return token;
       
-      if(trigger==="update") {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-        return {...token, ...session.user};
+      if(trigger==="update" && session) {
+        const sess = session as Session;
+        return {...token, ...sess.user};
     }
 
       const currentUser = await getUserByEmailClient(token.email);

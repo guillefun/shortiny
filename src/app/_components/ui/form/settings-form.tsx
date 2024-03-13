@@ -1,8 +1,8 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { getSession, useSession } from "next-auth/react"
 import {
   Form,
   FormControl,
@@ -22,7 +22,9 @@ import { updateUser } from "shortiny/server/actions/updateUser";
 import { type z } from "zod";
 import Button from "../button/button";
 import CardWrapper from "../card/card-wrapper";
-import { auth } from "shortiny/server/auth";
+
+import { useRouter } from "next/navigation";
+
 
 
 
@@ -31,7 +33,7 @@ export default function SettingsForm({ userData }: { userData: SettingsFormData 
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const { update, data: session } = useSession()
-
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
@@ -43,7 +45,6 @@ export default function SettingsForm({ userData }: { userData: SettingsFormData 
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
     startTransition(async () => {
       await updateUser(values).then(async (result) => {
-        
         setError(result.error);
         setSuccess(result.success);
         if(result.success) {
@@ -53,9 +54,9 @@ export default function SettingsForm({ userData }: { userData: SettingsFormData 
               ...session?.user,
               name: values.username
             }
-          }).then((res)=>{
-            console.log("session", res)
-            window.location.reload();
+          }).then((_res)=>{
+           // window.location.reload();
+           router.refresh();
           })
           
         }

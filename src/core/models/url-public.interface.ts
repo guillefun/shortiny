@@ -3,3 +3,9 @@ export interface UrlPublic {
   shortinyUrl: string,
   date: string
 }
+
+export interface RawUrl {
+  url: string,
+  shortinyUrl: string,
+  createdAt: Date
+}

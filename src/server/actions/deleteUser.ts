@@ -1,9 +1,7 @@
 "use server"
 
-import { SettingsSchema } from "shortiny/core/schemas";
 import { getUserById } from "shortiny/data/user";
 import { api } from 'shortiny/trpc/server';
-import { type z } from "zod";
 import { auth } from "../auth";
 
 interface UserId {
@@ -15,6 +13,10 @@ export const deleteUser = async (values: UserId) => {
   const currentUser = session?.user;
 
   if(!currentUser?.id) {
+    return { error: "Unauthorized" }
+  }
+
+  if(currentUser?.id !== values.id) {
     return { error: "Unauthorized" }
   }
 

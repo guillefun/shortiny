@@ -1,21 +1,33 @@
 import Link from "next/link";
 import Button from "shortiny/app/_components/ui/button/button";
+import { auth } from "shortiny/server/auth";
 import UrlBoard from "../../_components/ui/table/private/UrlBoard";
+import { api } from "shortiny/trpc/server";
+import type { RawUrl } from "shortiny/core/models/url-public.interface";
 
 export default async function Board() {
-//TODO: MOVE TABLE TO COMPONENT
+  //TODO: MOVE TABLE TO COMPONENT
+  const urls: RawUrl[] = await api.url.getAllUrls.query() ?? []
+
+  const session = await auth();
   return (
     <>
-      <section className="py-4">
-        <Link href="/url-form" className="w-fit flex">
-          <Button>
-            Add new URL
-          </Button>
+      {session?.user ? (
+        <section className="flex justify-center py-4">
+          <h2 className="mb-8 mt-2 text-4xl font-semibold text-black dark:text-zinc-100">
+            Welcome back {session?.user?.name}
+          </h2>
+        </section>
+      ) : (
+        <></>
+      )}
+      <section className="flex justify-center py-4">
+        <Link href="/url-form" className="flex w-fit">
+          <Button>Add new URL</Button>
         </Link>
       </section>
-      <section className="flex h-full w-full flex-col items-center justify-center rounded-2xl border bg-white shadow-xl dark:border-zinc-700 dark:bg-zinc-800 mb-[10rem]">
-        <UrlBoard host={process.env.HOSTNAME!} />
-      </section>
+
+      <UrlBoard host={process.env.HOSTNAME!} urls={urls} />
     </>
   );
 }

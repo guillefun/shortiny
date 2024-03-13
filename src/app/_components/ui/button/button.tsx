@@ -31,7 +31,6 @@ export default function Button({
   size?: ButtonSize;
   loading?: boolean;
 }) {
-  console.log("size", size);
   return (
     <button
       onClick={() => {

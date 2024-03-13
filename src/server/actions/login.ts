@@ -1,7 +1,7 @@
 "use server"
 
 import { LoginSchema } from "shortiny/core/schemas"
-import { z } from "zod"
+import { type z } from "zod"
 import { signIn } from "shortiny/server/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "shortiny/routes";
 import { AuthError } from "next-auth";

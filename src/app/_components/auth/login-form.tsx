@@ -44,7 +44,6 @@ export default function LoginForm() {
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     startTransition(async () => {
       await login(values, callbackUrl).then((data)=>{
-        console.log(data)
         setError(data?.error)
         setSuccess(data?.success)
       })

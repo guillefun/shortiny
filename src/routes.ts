@@ -37,5 +37,6 @@ export const protectedRoutes = [
  */
 export const apiAuthPrefix = "/api/auth"
 
+export const ONLY_PUBLIC_URL = "/"
 
 export const DEFAULT_LOGIN_REDIRECT = "/board"

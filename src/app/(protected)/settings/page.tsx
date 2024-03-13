@@ -11,7 +11,7 @@ import { deleteUser } from "shortiny/server/actions/deleteUser";
 
 export default async function Settings() {
   const session = await auth();
-  console.log("session", session);
+
   return (
     <AuthProvider>
       <section className="flex justify-between pb-4 pt-2">

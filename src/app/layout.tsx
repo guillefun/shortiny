@@ -4,8 +4,8 @@ import { Inter } from "next/font/google";
 
 import { TRPCReactProvider } from "shortiny/trpc/react";
 import NavHeader from "./_components/navigation/nav-header/NavHeader";
-import { ubuntu_mono } from "./utils/fonts";
 import Footer from "./_components/ui/footer/Footer";
+import { ubuntu_mono } from "./utils/fonts";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
