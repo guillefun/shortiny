@@ -1,9 +1,4 @@
-import { UseFormReturn } from "react-hook-form";
 import * as z from "zod";
-
-enum Schema {
-
-}
 
 export const LoginSchema = z.object({
   email: z.string().email({

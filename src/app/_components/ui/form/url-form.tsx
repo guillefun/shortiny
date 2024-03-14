@@ -16,10 +16,7 @@ import { api } from "shortiny/trpc/react";
 import { type z } from "zod";
 import Button from "../button/button";
 import CardWrapper from "../card/card-wrapper";
-import Router from "next/router";
 import { useRouter } from "next/navigation";
-
-
 
 export default function UrlForm({
   host,
@@ -32,7 +29,7 @@ export default function UrlForm({
   const [shortiny, setShortiny] = useState("");
   const [isPending, startTransition] = useTransition()
   const router = useRouter();
-
+  
   const getShortUrl = api.url.shortinyURL.useMutation({
     onSuccess: (result: Url) => {
       setShortiny(result.shortinyUrl);

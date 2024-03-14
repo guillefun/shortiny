@@ -1,7 +1,7 @@
 "use server"
 
 import { RegisterSchema } from "shortiny/core/schemas"
-import { z } from "zod"
+import { type z } from "zod"
 import bcrypt from "bcrypt"
 import { api } from 'shortiny/trpc/server';
 import { getUserByEmail } from "shortiny/data/user";

@@ -5,14 +5,12 @@ import React from 'react'
 
 interface LoginActionProps {
   children: React.ReactNode,
-  mode?: "modal" | "redirect",
-  asChild?: boolean
+  mode?: "modal" | "redirect"
 }
 
 export const LoginAction = ({
   children,
-  mode = "redirect",
-  asChild
+  mode = "redirect"
 }: LoginActionProps) => {
   
   return (
