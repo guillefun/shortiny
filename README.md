@@ -1,3 +1,6 @@
+# Shortiny
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/82a4a9f8830c4f5da580fd64b49222f5)](https://app.codacy.com/gh/guillefun/shortiny/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 # Create T3 App
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
