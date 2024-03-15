@@ -1,2 +1,3 @@
 # Ignore files ESLint
 src/trpc/
+src/server/api/
