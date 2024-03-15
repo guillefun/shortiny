@@ -29,7 +29,7 @@ export default async function RootLayout({
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </head>
-      <body className={`font-ubuntu_mono ${inter.variable} ${ubuntu_mono}`}>
+      <body className={`font-ubuntu-mono ${inter.variable} ${ubuntu_mono}`}>
         <TRPCReactProvider>
             <NavHeader />
               <main>
