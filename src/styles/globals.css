@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'react-toastify/dist/ReactToastify.css';
-@import './modules/_index';
+@import url('react-toastify/dist/ReactToastify.css');
+@import url('./modules/_index');
 
 :root {
   --foreground-rgb: 255, 255, 255;
@@ -32,7 +32,6 @@ body {
 
 main {
   max-width: var(--mw-doc);
- 
   padding: 2rem;
   margin: 0 auto;
 }
