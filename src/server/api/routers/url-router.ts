@@ -61,7 +61,7 @@ export const urlRouter = createTRPCRouter({
       return data;
     }),
 
-  fetchLongUrl: protectedProcedure
+  fetchLongUrl: publicProcedure
     .input(
       z.object({ 
         shortinyUrl: z.string().length(6, { message: 'Must be 6 characters long' })
